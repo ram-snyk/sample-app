@@ -24,6 +24,7 @@ app.get('/download/:filename', (req, res) => {
   fileStream.pipe(res);
 });
 
+# Start the server 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
