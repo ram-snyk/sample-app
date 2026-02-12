@@ -42,6 +42,13 @@ app.get('/download/:filename', (req, res) => {
   fileStream.pipe(res);
 });
 
+app.post('/upload', upload.single('pdf'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
+  }
+  res.send(`File uploaded: ${req.file.filename}`);
+});
+
 # Start the server 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
