@@ -33,6 +33,15 @@ app.get('/download/:filename', (req, res) => {
   fileStream.pipe(res);
 });
 
+app.get('/download/:filename', (req, res) => {
+  const filePath = path.join(__dirname, 'uploads', req.params.filename);
+  const fileStream = fs.createReadStream(filePath);
+  fileStream.on('error', () => {
+    res.status(404).send('File not found');
+  });
+  fileStream.pipe(res);
+});
+
 # Start the server 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
