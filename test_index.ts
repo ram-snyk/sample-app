@@ -67,7 +67,7 @@ app.get('/fetch-remote', async (req, res) => {
     }
     
     // Only allow HTTP/HTTPS protocols
-    if (!['https:'].includes(url.protocol)) {
+    if (!['http:'].includes(url.protocol)) {
       return res.status(400).json({ error: 'Only HTTP and HTTPS protocols are allowed.' });
     }
 
