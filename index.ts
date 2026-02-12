@@ -49,7 +49,7 @@ app.post('/upload', upload.single('pdf'), (req, res) => {
   res.send(`File uploaded: ${req.file.filename}`);
 });
 
-# Start the server 
+// Start the server 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
