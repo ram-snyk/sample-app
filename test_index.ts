@@ -6,6 +6,10 @@ import axios from 'axios';
 import rateLimit from 'express-rate-limit';
 
 export const app = express();
+
+// Fix: Disable X-Powered-By header
+app.disable('x-powered-by');
+
 const upload = multer({ dest: 'uploads/' });
 
 // Fix: Add rate limiting for expensive operations
@@ -18,12 +22,12 @@ const downloadLimiter = rateLimit({
 app.use(express.static('public'));
 app.use(express.json());
 
-// Existing Local Upload
+// Fix: Sanitize output to prevent XSS
 app.post('/upload', upload.single('pdf'), (req, res) => {
   if (!req.file) {
-    return res.status(400).send('No file uploaded.');
+    return res.status(400).json({ error: 'No file uploaded.' });
   }
-  res.send(`File uploaded: ${req.file.filename}`);
+  res.json({ message: 'File uploaded', filename: req.file.filename });
 });
 
 // --- FIXED SSRF VULNERABILITY ---
